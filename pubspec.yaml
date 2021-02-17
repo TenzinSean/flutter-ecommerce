@@ -31,6 +31,10 @@ dependencies:
 
   # Firebase dependencies
   firebase_core: "0.7.0"
+  firebase_auth: ^0.20.0+1
+
+  # google fonts
+  google_fonts: ^1.1.2
 
 dev_dependencies:
   flutter_test:

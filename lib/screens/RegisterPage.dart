@@ -36,7 +36,29 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
+  // Default from Loading State
   bool _registerFormLoading = false;
+
+  // Form Input Field Values
+  String _registerEmail = "";
+  String _registerPassword = "";
+
+
+  // Focus Node for input fields
+  FocusNode _passwordFocusNode;
+
+  @override
+  void initState(){
+    _passwordFocusNode = FocusNode();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _passwordFocusNode.dispose();
+    super.dispose();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -61,9 +83,21 @@ class _RegisterPageState extends State<RegisterPage> {
                 children: [
                   CustomInput(
                     hintText: "Email...",
+                    onChanged: (value) {
+                      _registerEmail = value;
+                    },
+                    onSubmit: (value) {
+                      _passwordFocusNode.requestFocus();
+                    },
+                    textInputAction: TextInputAction.next,
                   ),
                   CustomInput(
                     hintText: "Password.. ",
+                    onChanged: (value) {
+                      _registerPassword = value;
+                    },
+                    focusNode: _passwordFocusNode,
+                    isPasswordField: true,
                   ),
                   CustomBtn(
                     text: "Create new Account",

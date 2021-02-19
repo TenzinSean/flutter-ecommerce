@@ -21,7 +21,7 @@ class _LoginPageState extends State<LoginPage> {
               children: [
                 Container(
                   padding: EdgeInsets.only(
-                top: 24.0
+                  top: 24.0
                 ),
                   child: Text(
                       'Welcome User Login, \n Login to your account',

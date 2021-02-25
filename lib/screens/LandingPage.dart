@@ -26,12 +26,14 @@ class LandingPage extends StatelessWidget {
 
         //Connection Initialezed firebase is running
         if(snapshot.connectionState ==  ConnectionState.done){
+
+
           //Streambuilder check the login state live
           return StreamBuilder(
             stream: FirebaseAuth.instance.authStateChanges(),
             builder: (context, streamSnapshot){
               // if stream snapshot has error
-              if(snapshot.hasError) {
+              if(streamSnapshot.hasError) {
                 return Scaffold(
                   body: Center(
                     child: Text("EROOR : ${streamSnapshot.error}"),

@@ -14,14 +14,14 @@ class ProductPage extends StatefulWidget {
 }
 
 class _ProductPageState extends State<ProductPage> {
-  final CollectionReference _productsRef = FirebaseFirestore.instance.collection("Products");
+  final CollectionReference _productsRef =
+    FirebaseFirestore.instance.collection("Products");
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack (
         children: [
-          ListView(
-            children: [
               FutureBuilder(
                 future: _productsRef.doc(widget.productId).get(),
                 builder: (context, snapshot) {
@@ -34,36 +34,75 @@ class _ProductPageState extends State<ProductPage> {
                   }
 
                   if(snapshot.connectionState == ConnectionState.done){
+                    // Firebase Document Data Map
+
+                    // Error Map render the data
                     Map<String, dynamic> documentData = snapshot.data.data();
+
+                    // List of Images
+                    List imageList = documentData["images"];
+
                     return ListView(
+                      padding: EdgeInsets.all(0),
                       children: [
-                        Image.network(
-                          "${documentData["images"]}",
+                        Container(
+                          height: 400.0,
+                          child: PageView(
+                            children: [
+                              for(var i=0; i < imageList.length; i++)
+                                Container(
+                                  child: Image.network(
+                                    "${imageList[i]}",
+                                    fit: BoxFit.cover,
+                                  ),
+                                )
+                            ],
+                          ),
                         ),
-                        Text(
-                            "Product name",
-                            style: Constants.boldHeading,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 4.0,
+                            horizontal: 24.0,
+                          ),
+                         child: Text(
+                              "${documentData['name']}",
+                              style: Constants.boldHeading,
+                          ),
                         ),
-                        Text(
-                            "Price",
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 8.0,
+                            horizontal: 24.0,
+                          ),
+                          child: Text(
+                            "\$${documentData['price']}",
                             style: TextStyle(
                               fontSize: 18.0,
                               color: Theme.of(context).accentColor,
                               fontWeight: FontWeight.w600,
-                            ),
+                            )
+                          ),
                         ),
-                        Text(
-                          "Description",
-                        style: TextStyle(
-                            fontSize: 16.0,
-                            color: Theme.of(context).accentColor,
-                            fontWeight: FontWeight.w600,
-                         )
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 8.0,
+                            horizontal: 24.0,
+                          ),
+                          child: Text(
+                            "${documentData['desc']}",
+                            style: Constants.regularDarkText,
+                          ),
                         ),
-                        Text(
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 8.0,
+                            horizontal: 24.0,
+                          ),
+                          child: Text(
                             "Size",
-                          style: Constants.regularDarkText
-                        ),
+                            style: Constants.regularDarkText
+                          ),
+                        )
                       ],
                     );
                   }
@@ -75,8 +114,6 @@ class _ProductPageState extends State<ProductPage> {
                   );
                 }
               ),
-            ],
-          ),
           CustomActionBar(
             hasBackArrow: true,
             hasTitle: false,

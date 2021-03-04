@@ -5,12 +5,14 @@ class CustomActionBar extends StatelessWidget {
   final String title;
   final bool hasBackArrow;
   final bool hasTitle;
-  CustomActionBar({this.title, this.hasBackArrow, this.hasTitle});
+  final bool hasBackground;
+  CustomActionBar({this.title, this.hasBackArrow, this.hasTitle, this.hasBackground});
 
   @override
   Widget build(BuildContext context) {
     bool _hasBackArrow = hasBackArrow ?? false;
     bool _hasTitle = hasTitle ?? true;
+    bool _hasBackground = hasBackground ?? true;
 
     return Container(
       decoration: BoxDecoration(
@@ -36,7 +38,7 @@ class CustomActionBar extends StatelessWidget {
             Container(
               child: Image(
               image: AssetImage(
-                "back_arrow.png"
+                "assets/images/back_arrow.png"
               ),
                 color: Colors.white,
                 width: 16.0,

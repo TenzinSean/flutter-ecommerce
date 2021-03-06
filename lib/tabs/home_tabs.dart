@@ -54,7 +54,7 @@ class HomeTab extends StatelessWidget {
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(12.0),
                                 child: Image.network(
-                                  "${document.data()['images']}",
+                                  "${document.data()['image']}",
                                   fit: BoxFit.cover,
                                 ),
                               ),

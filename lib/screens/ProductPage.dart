@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce/widgets/custom_action_bar.dart';
+import 'package:ecommerce/widgets/product_size.dart';
 import 'package:flutter/material.dart';
 
 import '../constants.dart';
@@ -39,6 +40,8 @@ class _ProductPageState extends State<ProductPage> {
                     Map<String, dynamic> documentData = snapshot.data.data();
                     // List of Images
                     List imageList = documentData["images"];
+                    List productsSizes = documentData["size"];
+
                     return ListView(
                       padding: EdgeInsets.all(0),
                       children: [
@@ -102,6 +105,53 @@ class _ProductPageState extends State<ProductPage> {
                           child: Text(
                             "Size",
                             style: Constants.regularDarkText
+                          ),
+                        ),
+                        ProductSize(
+                          productSizes: productsSizes,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(24.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Container(
+                                width: 65.0,
+                                height: 65.0,
+                                decoration: BoxDecoration(
+                                  color: Color(0XFFDCDCDC),
+                                  borderRadius: BorderRadius.circular(12.0),
+                                ),
+                                alignment: Alignment.center,
+                                child: Image(
+                                  image: AssetImage(
+                                    "assets/images/tab_saved.png",
+                                  ),
+                                  height: 22.0,
+                                ),
+                              ),
+                              Expanded(
+                                child: Container(
+                                  height: 65.0,
+                                  margin: EdgeInsets.only(
+                                    left: 16.0,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: Colors.black,
+                                    borderRadius: BorderRadius.circular(12.0)
+                                  ),
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                      "Add to Cart",
+                                     style: TextStyle(
+                                       color: Colors.white,
+                                       fontSize: 16.0,
+                                       fontWeight: FontWeight.w600
+                                     )
+                                  ),
+                                ),
+                              )
+                            ],
                           ),
                         )
                       ],
